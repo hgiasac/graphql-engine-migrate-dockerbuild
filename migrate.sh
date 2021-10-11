@@ -39,8 +39,10 @@ http_wait() {
 
 http_wait "$ENDPOINT/healthz"
 
-# apply migration
-hasura migrate apply --all-databases --admin-secret $HASURA_GRAPHQL_ADMIN_SECRET --endpoint $ENDPOINT
-
 # apply metadata
 hasura metadata apply --admin-secret $HASURA_GRAPHQL_ADMIN_SECRET --endpoint $ENDPOINT
+
+# apply migration
+hasura migrate apply --all-databases --admin-secret $HASURA_GRAPHQL_ADMIN_SECRET --endpoint $ENDPOINT
+hasura metadata reload --admin-secret $HASURA_GRAPHQL_ADMIN_SECRET --endpoint $ENDPOINT
+
